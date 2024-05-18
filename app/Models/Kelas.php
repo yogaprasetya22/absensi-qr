@@ -29,6 +29,6 @@ class Kelas extends Model
 
     public function absensi()
     {
-        return $this->hasOne(AbsensiMahasiswa::class);
+        return $this->hasMany(AbsensiMahasiswa::class);
     }
 }

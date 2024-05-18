@@ -353,12 +353,12 @@ class DatabaseSeeder extends Seeder
                 $presensi_empty = Kelas::where('tanggal', $tanggal_pertemuan->format('Y-m-d'))->where('pertemuan', $i)->doesntExist();
 
                 $jam_mulai = [
-                    '07:00:00',
-                    '13:00:00',
+                    '07:00',
+                    '13:00',
                 ];
                 $jam_selesai = [
-                    '09:40:00',
-                    '15:40:00',
+                    '09:40',
+                    '15:40',
                 ];
 
                 Kelas::create([

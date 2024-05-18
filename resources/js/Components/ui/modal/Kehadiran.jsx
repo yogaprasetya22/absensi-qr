@@ -20,8 +20,6 @@ export default function Kehadiran({ data }) {
         kelas_id: "",
     });
 
-    console.log(data);
-
     useEffect(() => {
         if (data?.data) {
             const attendances = data.data.map((item) => ({

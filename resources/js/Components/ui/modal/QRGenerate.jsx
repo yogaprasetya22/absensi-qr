@@ -1,7 +1,7 @@
 import React from "react";
 import QRCode from "react-qr-code";
 
-export default function QRGenerate({ value }) {
+export default function QRGenerate({ value, title }) {
     return (
         <dialog
             id="my_modal_1"
@@ -9,8 +9,8 @@ export default function QRGenerate({ value }) {
         >
             <div className="modal-box w-full max-w-md overflow">
                 <div className="w-full flex flex-row justify-between items-center  z-10">
-                    <h1 className="text-2xl font-bold text-gray-500">
-                        List Mahasiswa
+                    <h1 className="text-2xl font-bold text-black">
+                        {title && title !== "" ? title : "QR Code"}
                     </h1>
                     <button
                         onClick={() => {

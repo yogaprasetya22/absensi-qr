@@ -9,6 +9,7 @@ import ListMahasiswa from "@/Components/ui/modal/ListMahasiswa";
 
 export default function Index({ auth, matkul: data_mahasiswa }) {
     const [dataModal, setDataModal] = React.useState([]);
+    const [title, setTitle] = React.useState("");
     const [dataQr, setDataQr] = React.useState({
         mahasiswa_kelas_id: null,
         mahasiswa_matkul_id: null,
@@ -56,7 +57,9 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
     };
     return (
         <Layout>
-            {open && <QRScene setOpen={setOpen} dataQr={dataQr} />}
+            {open && (
+                <QRScene setOpen={setOpen} dataQr={dataQr} title={title} />
+            )}
             <ListMahasiswa data={dataModal} />
             <div className=" w-full px-[5rem] flex flex-col gap-5">
                 <div className="w-full flex flex-row gap-5 bg-white shadow-lg rounded-md">
@@ -131,6 +134,9 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                     mahasiswa_matkul_id:
                                                         item.matkul_id,
                                                 });
+                                                setTitle(
+                                                    item.matkul.nama_matkul
+                                                );
                                                 window.my_modal_1.show();
                                             }
                                         }}
@@ -161,7 +167,7 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                         <div className="flex flex-row gap-3 items-center">
                                             <i className="fas fa-home text-md text-gray-300"></i>
                                             <p className="text-sm">
-                                                {/* {item.kelas.ruangan} */}
+                                                {item.ruangan.nama_ruang}
                                             </p>
                                         </div>
                                     </div>
@@ -173,18 +179,77 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                             </p>
                                         </div>
                                         <div className="flex flex-row gap-3 items-center">
-                                            {/* {item.presensi.status === null ? (
+                                            {item?.absensi &&
+                                            item?.absensi.filter(
+                                                (item) =>
+                                                    item.mahasiswa_id ===
+                                                    auth.user.id
+                                            )[0]?.status === undefined ? (
                                                 <>
                                                     <i className="fas fa-check-circle text-md text-gray-500"></i>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <i className="fas fa-check-circle text-md text-green-500"></i>
-                                                    <p className="text-sm">
-                                                        Hadir
-                                                    </p>
+                                                    {item?.absensi &&
+                                                        item?.absensi.filter(
+                                                            (item) =>
+                                                                item.mahasiswa_id ===
+                                                                auth.user.id
+                                                        )[0]?.status ===
+                                                            "hadir" && (
+                                                            <>
+                                                                <i className="fas fa-check-circle text-md text-green-500"></i>
+                                                                <p className="text-sm">
+                                                                    Hadir
+                                                                </p>
+                                                            </>
+                                                        )}
+                                                    {item?.absensi &&
+                                                        item?.absensi.filter(
+                                                            (item) =>
+                                                                item.mahasiswa_id ===
+                                                                auth.user.id
+                                                        )[0]?.status ===
+                                                            "izin" && (
+                                                            <>
+                                                                <i className="fas fa-exclamation-circle text-md text-gray-500"></i>
+                                                                <p className="text-sm">
+                                                                    Izin
+                                                                </p>
+                                                            </>
+                                                        )}
+
+                                                    {item?.absensi &&
+                                                        item?.absensi.filter(
+                                                            (item) =>
+                                                                item.mahasiswa_id ===
+                                                                auth.user.id
+                                                        )[0]?.status ===
+                                                            "sakit" && (
+                                                            <>
+                                                                <i className="fas fa-exclamation text-md text-yellow-500"></i>
+                                                                <p className="text-sm">
+                                                                    Sakit
+                                                                </p>
+                                                            </>
+                                                        )}
+
+                                                    {item?.absensi &&
+                                                        item?.absensi.filter(
+                                                            (item) =>
+                                                                item.mahasiswa_id ===
+                                                                auth.user.id
+                                                        )[0]?.status ===
+                                                            "alpa" && (
+                                                            <>
+                                                                <i className="fas fa-check-circle text-md text-gray-500"></i>
+                                                                <p className="text-sm">
+                                                                    Alpa
+                                                                </p>
+                                                            </>
+                                                        )}
                                                 </>
-                                            )} */}
+                                            )}
                                         </div>
                                     </div>
                                 </div>

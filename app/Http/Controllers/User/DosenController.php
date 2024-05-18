@@ -27,7 +27,7 @@ class DosenController extends Controller
 
     public function matkul_diajar()
     {
-        $data_matkul = DaftarMatkulDosen::with('matkul.prodi.mahasiswa.user', 'matkul.prodi.dosen.user')->where('dosen_id', auth()->user()->dosen->id)->get();
+        $data_matkul = DaftarMatkulDosen::with('matkul.prodi.mahasiswa.user', 'matkul.prodi.dosen.user', 'matkul.kelas.ruangan')->where('dosen_id', auth()->user()->dosen->id)->get();
         return Inertia::render('dosen/MatkulDiajar', [
             'title' => 'Mata Kuliah Diajar',
             'data_matkul' => $data_matkul,

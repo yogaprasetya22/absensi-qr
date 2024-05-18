@@ -4,10 +4,9 @@ import React from "react";
 
 export default function Matkul({ data_matkul }) {
     const [dataModal, setDataModal] = React.useState([]);
-    console.log(data_matkul);
     return (
         <Layout>
-            {/* <ListMahasiswa data={dataModal} /> */}
+            <ListMahasiswa data={dataModal} />
             <div className=" w-full px-[5rem] flex flex-col gap-5">
                 <div className="w-2/3 flex flex-col gap-5 bg-white shadow-lg rounded-md p-5">
                     <div className="w-full flex justify-between px-2 items-center">
@@ -31,11 +30,10 @@ export default function Matkul({ data_matkul }) {
                                     <div className="flex flex-row gap-3 items-center">
                                         <i className="fas fa-clock text-md text-gray-300"></i>
                                         <p className="text-sm">
-                                            {/* {item.matkul.daftar_kelas[0]
-                                                .presensi.jam_mulai +
+                                            {item.matkul.kelas[0].jam_mulai +
                                                 " - " +
-                                                item.matkul.daftar_kelas[0]
-                                                    .presensi.jam_selesai} */}
+                                                item.matkul.kelas[0]
+                                                    .jam_selesai}
                                         </p>
                                     </div>
                                     <div className="flex flex-row gap-3 items-center">
@@ -47,10 +45,10 @@ export default function Matkul({ data_matkul }) {
                                     <div className="flex flex-row gap-3 items-center">
                                         <i className="fas fa-home text-md text-gray-300"></i>
                                         <p className="text-sm">
-                                            {/* {
-                                                item.matkul.daftar_kelas[0]
-                                                    .kelas.ruangan
-                                            } */}
+                                            {
+                                                item.matkul.kelas[0].ruangan
+                                                    .nama_ruang
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -66,13 +64,14 @@ export default function Matkul({ data_matkul }) {
                             <div className="w-full flex justify-end absolute bottom-0 right-0 p-3">
                                 <button
                                     className="border-2 border-gray-300 text-gray-500 px-3 py-1 rounded-md"
-                                    // onClick={() => {
-                                    //     setDataModal({
-                                    //         data: item.matkul.mahasiswa,
-                                    //         title: item.matkul.nama_matkul,
-                                    //     });
-                                    //     window.my_modal_2.show();
-                                    // }}
+                                    onClick={() => {
+                                        setDataModal({
+                                            data: item.matkul.prodi.mahasiswa,
+                                            title: item.matkul.nama_matkul,
+                                            prodi: item.matkul.prodi.nama_prodi,
+                                        });
+                                        window.my_modal_2.show();
+                                    }}
                                 >
                                     <i className="fas fa-users text-md text-gray-400 pr-2"></i>{" "}
                                     Lihat Mahasiswa

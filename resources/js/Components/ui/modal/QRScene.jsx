@@ -6,7 +6,7 @@ import React from "react";
 import { useEffect } from "react";
 import { QrReader } from "react-qr-reader";
 
-export default function QRScene({ setOpen, dataQr }) {
+export default function QRScene({ setOpen, dataQr,title }) {
     const [result, setResult] = React.useState(null);
 
     const handleScan = () => {
@@ -51,7 +51,7 @@ export default function QRScene({ setOpen, dataQr }) {
                 <div className=" w-full flex flex-col gap-5">
                     <div className="w-full flex flex-row justify-between items-center -mb-[4rem] z-10">
                         <h1 className="text-2xl font-bold text-gray-500">
-                            Delete owner
+                            {title && title !== "" ? title : "QR Code"}
                         </h1>
                         <button
                             onClick={() => {

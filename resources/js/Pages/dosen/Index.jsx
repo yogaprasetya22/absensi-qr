@@ -9,6 +9,7 @@ import Kehadiran from "@/Components/ui/modal/Kehadiran";
 
 export default function Index({ auth, matkul: data_mahasiswa }) {
     const [dataModal, setDataModal] = React.useState([]);
+    const [title, setTitle] = React.useState("");
     const [dataQr, setDataQr] = React.useState({
         kelas_id: null,
         matkul_id: null,
@@ -17,7 +18,6 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
     const [date, setDate] = React.useState(new Date());
     const [open, setOpen] = React.useState(false);
     const [doubleTap, setDoubleTap] = React.useState(false);
-    console.log(data);
 
     useEffect(() => {
         const filteredData = data_mahasiswa.filter(
@@ -59,6 +59,7 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
         <Layout>
             <QRGenerate
                 value={`${window.location.origin}/api/absensi?kelas_id=${dataQr.kelas_id}&matkul_id=${dataQr.matkul_id}`}
+                title={title}
             />
             <Kehadiran data={dataModal} />
             <div className=" w-full px-[5rem] flex flex-col gap-5">
@@ -133,6 +134,9 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                     kelas_id: item.id,
                                                     matkul_id: item.matkul.id,
                                                 });
+                                                setTitle(
+                                                    item.matkul.nama_matkul
+                                                );
                                                 window.my_modal_1.show();
                                             }
                                         }}

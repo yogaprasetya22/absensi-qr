@@ -44,7 +44,9 @@ class AbsensiController extends Controller
         }
 
         // buatkan kondisi dimana kalau absensi sudah ada, maka hapus absensi yang sudah ada
-        AbsensiMahasiswa::where('kelas_id', $request->kelas_id)->where('tanggal', $request->tanggal)->delete();
+        foreach ($absensi as $key => $value) {
+            AbsensiMahasiswa::where('mahasiswa_id', $value['mahasiswa_id'])->where('kelas_id', $value['kelas_id'])->where('tanggal', $value['tanggal'])->delete();
+        }
 
         // jika absensi sudah dihapus, maka simpan absensi yang baru
         AbsensiMahasiswa::insert($absensi);
