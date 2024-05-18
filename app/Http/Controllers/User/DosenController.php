@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\DaftarKelas;
+use App\Models\DaftarMatkulDosen;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,8 +16,21 @@ class DosenController extends Controller
      */
     public function index()
     {
+        $matkul = Kelas::with('matkul.prodi.mahasiswa.user', 'matkul.prodi.dosen.user', 'ruangan', 'matkul.prodi.mahasiswa.absensi_mahasiswa')->whereHas('matkul.prodi.dosen', function ($query) {
+            $query->where('id', auth()->user()->dosen->id);
+        })->get();
         return Inertia::render('dosen/Index', [
             'title' => 'Dosen',
+            'matkul' => $matkul,
+        ]);
+    }
+
+    public function matkul_diajar()
+    {
+        $data_matkul = DaftarMatkulDosen::with('matkul.prodi.mahasiswa.user', 'matkul.prodi.dosen.user')->where('dosen_id', auth()->user()->dosen->id)->get();
+        return Inertia::render('dosen/MatkulDiajar', [
+            'title' => 'Mata Kuliah Diajar',
+            'data_matkul' => $data_matkul,
         ]);
     }
 

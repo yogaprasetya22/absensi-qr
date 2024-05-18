@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Maktul extends Model
+class DaftarMatkulMahasiswa extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
@@ -17,13 +17,8 @@ class Maktul extends Model
         return $this->belongsTo(Mahasiswa::class);
     }
 
-    public function dosen()
+    public function matkul()
     {
-        return $this->belongsTo(Dosen::class);
-    }
-
-    public function prodi()
-    {
-        return $this->belongsTo(Prodi::class);
+        return $this->belongsTo(Matkul::class);
     }
 }

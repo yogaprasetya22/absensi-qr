@@ -19,11 +19,11 @@ class Prodi extends Model
 
     public function dosen()
     {
-        return $this->hasMany(Dosen::class, 'prodi_id');
+        return $this->hasOne(Dosen::class, 'prodi_id');
     }
 
-    public function maktul()
+    public function matkul()
     {
-        return $this->hasOne(Maktul::class, 'prodi_id');
+        return $this->hasMany(Matkul::class, 'prodi_id');
     }
 }

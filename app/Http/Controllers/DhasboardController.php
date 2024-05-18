@@ -2,103 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
+use App\Models\Matkul;
 use App\Models\Prodi;
-use App\Models\user;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
+use Faker\Factory;
 
 class DhasboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $faker = \Faker\Factory::create('id_ID');
+        $faker = Factory::create('id_ID');
         $now = Carbon::now();
-        // fake data mahasiswa dan nimnya berdasarkan prodi
-        $data_mahasiswa = [];
-        $prodi = Prodi::all();
-        foreach ($prodi as $key => $value) {
-            $prodi_id = $value->id;
-            $nama_prodi = $value->nama_prodi;
-            $nim = [
-                'Manajemen' => '202400' . $key . '01',
-                'Akuntansi' => '202400' . $key . '02',
-                'Ilmu Komunikasi' => '202400' . $key . '03',
-                'Psikologi' => '202400' . $key . '04',
-                'Teknik Sipil' => '202400' . $key . '05',
-                'Arsitektur' => '202400' . $key . '06',
-                'Informatika' => '202400' . $key . '07',
-                'Sistem Informasi' => '202400' . $key . '08',
-                'Desain Produk' => '202400' . $key . '09',
-                'Desain Komunikasi Visual' => '202400' . $key . '10',
-            ];
+        $data_kelas = [];
+        $matkul_bt_kelas = Matkul::with('prodi.dosen.user')->get();
+        foreach ($matkul_bt_kelas as $key => $data_matkul_bt_kelas) {
+            for ($i = 1; $i <= 7; $i++) {
+                $start_date = Carbon::now()->startOfWeek()->addDays($key);
+                $tanggal_pertemuan = $start_date->copy()->addWeeks($i - 1); // Pertemuan setiap minggu
+                $presensi_empty = Kelas::where('tanggal', $tanggal_pertemuan->format('Y-m-d'))->where('pertemuan', $i)->doesntExist();
 
-            $data_mahasiswa[] = [
-                'prodi_id' => $prodi_id,
-                'nim' => $nim[$nama_prodi],
-                'nama' => $nama_prodi . ' 1',
-                'email' => 'mahasiswa' . $prodi_id . $key . '@gmail.com',
-                'password' => bcrypt('asdasdasd'),
-                'role_id' => '2',
-                'created_at' => now(),
-                'tempat_lahir' => $faker->city,
-                'tanggal_lahir' => $now->year(2004)->subMonths(2)->subDays(5)->format('Y-m-d'),
-                'alamat' => $faker->address,
-                'no_hp' => $faker->phoneNumber,
-            ];
+                $jam_mulai = [
+                    '07:00:00',
+                    '13:00:00',
+                ];
+                $jam_selesai = [
+                    '09:40:00',
+                    '15:40:00',
+                ];
+
+                $kelas = Kelas::create([
+                    'dosen_id' => $data_matkul_bt_kelas->prodi->dosen->user->id,
+                    'matkul_id' => $data_matkul_bt_kelas->id,
+                    'pertemuan' => $i,
+                    'tanggal' => $tanggal_pertemuan->format('Y-m-d'),
+                    'jam_mulai' => $presensi_empty ? $jam_mulai[0] : $jam_mulai[1],
+                    'jam_selesai' => $presensi_empty ? $jam_selesai[0] : $jam_selesai[1],
+                ]);
+
+                $kelas->absensi()->create([
+                    'mahasiswa_id' => Mahasiswa::inRandomOrder()->first()->id,
+                    'tanggal' => $tanggal_pertemuan->format('Y-m-d'),
+                    'jam_masuk' => $presensi_empty ? $jam_mulai[0] : $jam_mulai[1],
+                    'status' => 'hadir',
+                ]);
+            }
         }
+        return response()->json([
+            'count' => count($data_kelas),
+            'data' => $data_kelas,
+        ]);
 
-        return response()->json($data_mahasiswa);
-    }
+        // $data_mahasiswa = [];
+        // $nums_mahasiswa = 1;
+        // $prodi = Prodi::with('matkul')->get();
+        // foreach ($prodi as $key => $value) {
+        //     for ($i = 1; $i <= 14; $i++) {
+        //         $validasi_A_or_B = $nums_mahasiswa < 8 ? "A" : "B";
+        //         $data_mahasiswa[] = [
+        //             'prodi_id' => $value->id,
+        //             'name' => 'Mahasiswa' . "_" . $value->nama_prodi . "_" . $validasi_A_or_B,
+        //             'email' => 'mahasiswa' .  $value->id . "_" . $nums_mahasiswa . "_" .  $validasi_A_or_B . '@gmail.com',
+        //             'nim' => '2024' .  sprintf(
+        //                 "%02d",
+        //                 $value->id,
+        //             ) . sprintf(
+        //                 "%02d",
+        //                 $nums_mahasiswa
+        //             ),
+        //             'alamat' => $faker->address,
+        //             'no_hp' => $faker->phoneNumber,
+        //             'tempat_lahir' => $faker->city,
+        //             'tanggal_lahir' => $faker->date(),
+        //         ];
+        //         $nums_mahasiswa++;
+        //         if ($nums_mahasiswa > 14) {
+        //             $nums_mahasiswa = 1;
+        //         }
+        //     }
+        // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(user $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(user $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, user $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(user $user)
-    {
-        //
+        // return response()->json([
+        //     'count' => count($data_mahasiswa),
+        //     'data' => $data_mahasiswa,
+        // ]);
     }
 }

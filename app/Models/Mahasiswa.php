@@ -22,4 +22,9 @@ class Mahasiswa extends Model
         return $this->belongsTo(Prodi::class);
     }
 
+    public function absensi_mahasiswa()
+    {
+        return $this->hasMany(AbsensiMahasiswa::class);
+    }
+
 }

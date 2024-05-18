@@ -11,15 +11,25 @@ export const MenuDashboardValidate = (user) => {
 
     const MenuMahasiswaDashboard = [
         {
-            name: "Dashboard",
+            name: "Home",
             url: "/",
+            icon: "fas fa-th-large",
+        },
+        {
+            name: "Mata Kuliah",
+            url: "/matkul",
             icon: "fas fa-th-large",
         },
     ];
     const MenuDosenDashboard = [
         {
-            name: "Dashboard",
-            url: "/",
+            name: "Home",
+            url: `/${validateRole(user?.role_id)}`,
+            icon: "fas fa-th-large",
+        },
+        {
+            name: "Mata Kuliah Diajar",
+            url: `/${validateRole(user?.role_id)}/matkul-diajar`,
             icon: "fas fa-th-large",
         },
     ];

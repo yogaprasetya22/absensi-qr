@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensis', function (Blueprint $table) {
+        Schema::create('ruangans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kelas_id');
-            $table->foreignId('mahasiswa_id');
-            $table->integer('pertemuan_ke');
-            $table->enum('status', ['hadir', 'tidak hadir', 'izin', 'sakit']);
-            $table->timestamps();
+            $table->string('nama_ruang');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presensis');
+        Schema::dropIfExists('ruangans');
     }
 };

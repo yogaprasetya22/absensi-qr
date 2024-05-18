@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DhasboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/get/matkul', [DhasboardController::class, 'index']);
+Route::get('/get/test', [DhasboardController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+

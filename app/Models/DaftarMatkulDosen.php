@@ -5,30 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kelas extends Model
+class DaftarMatkulDosen extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
 
     public $timestamps = false;
 
-    public function matkul()
-    {
-        return $this->belongsTo(Matkul::class);
-    }
-
     public function dosen()
     {
         return $this->belongsTo(Dosen::class);
     }
 
-    public function ruangan()
+    public function matkul()
     {
-        return $this->belongsTo(Ruangan::class);
-    }
-
-    public function absensi()
-    {
-        return $this->hasOne(AbsensiMahasiswa::class);
+        return $this->belongsTo(Matkul::class);
     }
 }
