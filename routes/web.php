@@ -41,6 +41,8 @@ Route::prefix('/dosen')->middleware(['auth', 'role:3', 'verified'])->group(funct
 
 Route::prefix('admin')->middleware(['auth', 'role:1', 'verified'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/dosen', [AdminController::class, 'dosen'])->name('admin.dosen');
+    Route::get('/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
 });
 
 
@@ -50,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // absensi
+    Route::post('/buka_absen', [AbsensiController::class, 'buka_absen'])->name('dosen.buka_absen');
     Route::post('/absensi', [AbsensiController::class, 'store'])->name('dosen.absensi.store');
     Route::post('/api/absensi', [AbsensiController::class, 'store_qr'])->name('mahasiswa.absensi.store');
 });

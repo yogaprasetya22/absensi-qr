@@ -362,7 +362,7 @@ class DatabaseSeeder extends Seeder
                 ];
 
                 Kelas::create([
-                    'dosen_id' => $data_matkul_bt_kelas->prodi->dosen->user->id,
+                    'dosen_id' => $data_matkul_bt_kelas->prodi->dosen->id,
                     'matkul_id' => $data_matkul_bt_kelas->id,
                     'ruangan_id' => rand(1, 6),
                     'pertemuan' => $i,

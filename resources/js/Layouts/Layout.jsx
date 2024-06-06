@@ -14,8 +14,7 @@ export default function Layout({ children }) {
                 <footer className="footer footer-center p-2 bg-teal-600/70 text-white">
                     <aside>
                         <p>
-                            Copyright © {new Date().getFullYear()} - All right
-                            UPJ
+                            © {new Date().getFullYear()} BPSI Universitas Nasional. All rights reserved.
                         </p>
                     </aside>
                 </footer>

@@ -124,20 +124,28 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                         className="flex items-center gap-3 border-b"
                                         onClick={() => {
                                             if (!doubleTap) {
-                                                setDoubleTap(true);
-                                                setTimeout(() => {
-                                                    setDoubleTap(false);
-                                                }, 100);
-                                                setOpen(true);
-                                                setDataQr({
-                                                    mahasiswa_kelas_id: item.id,
-                                                    mahasiswa_matkul_id:
-                                                        item.matkul_id,
-                                                });
-                                                setTitle(
-                                                    item.matkul.nama_matkul
-                                                );
-                                                window.my_modal_1.show();
+                                                if (!item.buka_absen) {
+                                                    alert(
+                                                        "Pertemuan belum dibuka!"
+                                                    );
+                                                } else {
+                                                    setDoubleTap(true);
+                                                    setTimeout(() => {
+                                                        setDoubleTap(false);
+                                                    }, 100);
+                                                    setOpen(true);
+                                                    setDataQr({
+                                                        ...item,
+                                                        mahasiswa_kelas_id:
+                                                            item.id,
+                                                        mahasiswa_matkul_id:
+                                                            item.matkul_id,
+                                                    });
+                                                    setTitle( 
+                                                        item.matkul.nama_matkul
+                                                    );
+                                                    window.my_modal_1.show();
+                                                }
                                             }
                                         }}
                                     >
@@ -176,6 +184,20 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                             <i className="fas fa-calendar text-md text-gray-300"></i>
                                             <p className="text-sm">
                                                 Pertemuan {item.pertemuan}
+                                            </p>
+                                        </div>
+                                        <div className="flex flex-row gap-3 items-center">
+                                            <i
+                                                className={`fas fa-users text-md ${
+                                                    item.buka_absen
+                                                        ? "text-green-400"
+                                                        : "text-gray-300"
+                                                }`}
+                                            ></i>
+                                            <p className="text-sm">
+                                                {item.buka_absen
+                                                    ? "Absensi Terbuka"
+                                                    : "Absensi Belum Terbuka"}
                                             </p>
                                         </div>
                                         <div className="flex flex-row gap-3 items-center">

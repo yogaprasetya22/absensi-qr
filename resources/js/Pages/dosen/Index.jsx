@@ -6,6 +6,7 @@ moment.locale("id");
 import React from "react";
 import { useEffect } from "react";
 import Kehadiran from "@/Components/ui/modal/Kehadiran";
+import BukaAbsensi from "@/Components/ui/modal/BukaAbsensi";
 
 export default function Index({ auth, matkul: data_mahasiswa }) {
     const [dataModal, setDataModal] = React.useState([]);
@@ -62,6 +63,7 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                 title={title}
             />
             <Kehadiran data={dataModal} />
+            <BukaAbsensi value={dataModal} />
             <div className=" w-full px-[5rem] flex flex-col gap-5">
                 <div className="w-full flex flex-row gap-5 bg-white shadow-lg rounded-md">
                     <img
@@ -178,23 +180,30 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                 Pertemuan {item.pertemuan}
                                             </p>
                                         </div>
-                                        <div className="flex flex-row gap-3 items-center">
-                                            {/* {item.presensi.status === null ? (
-                                                <>
-                                                    <i className="fas fa-check-circle text-md text-gray-500"></i>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <i className="fas fa-check-circle text-md text-green-500"></i>
-                                                    <p className="text-sm">
-                                                        Hadir
-                                                    </p>
-                                                </>
-                                            )} */}
+                                        <div className="flex flex-row gap-3 items-center ">
+                                            <button
+                                                className="flex flex-row gap-3 items-center"
+                                                onClick={() => {
+                                                    setDataModal({
+                                                        data: item.matkul.prodi
+                                                            .mahasiswa,
+                                                        title: item.matkul
+                                                            .nama_matkul,
+                                                        prodi: item.matkul.prodi
+                                                            .nama_prodi,
+                                                        kelas_id: item.id,
+                                                        pertemuan:
+                                                            item.pertemuan,
+                                                    });
+                                                    window.my_modal_3.show();
+                                                }}
+                                            >
+                                                
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full flex justify-end absolute bottom-0 right-0 p-3">
+                                <div className="w-full flex gap-2 justify-end absolute bottom-0 right-0 p-3">
                                     <button
                                         className="border-2 border-gray-300 text-gray-500 px-3 py-1 rounded-md"
                                         onClick={() => {

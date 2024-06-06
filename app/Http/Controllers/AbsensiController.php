@@ -87,6 +87,24 @@ class AbsensiController extends Controller
         return redirect()->route('mahasiswa')->with('success', 'Absensi berhasil disimpan');
     }
 
+
+    public function buka_absen(Request $request)
+    {
+        $kelas = Kelas::find($request->kelas_id);
+
+        if (!$kelas) {
+            return response()->json([
+                'message' => 'Kelas tidak ditemukan',
+            ], 404);
+        }
+
+        $kelas->update([
+            'buka_absen' => true,
+        ]);
+
+        return redirect()->back()->with('success', 'Absensi berhasil dibuka');
+    }
+
     /**
      * Display the specified resource.
      */

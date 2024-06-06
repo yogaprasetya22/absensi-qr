@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->integer('pertemuan');
+            $table->boolean('buka_absen')->default(false);
             $table->date('tanggal');
             $table->time('jam_mulai');
             $table->time('jam_selesai');

@@ -7,8 +7,6 @@ import { useRef } from "react";
 import { MenuDashboardValidate } from "@/Layouts/libs/LibSidebar";
 
 export default function Navbar({ user }) {
-    const { auth } = usePage().props;
-    const [open, setOpen] = useState(false);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const toggleDropdown = () => {

@@ -5,7 +5,17 @@ export const MenuDashboardValidate = (user) => {
         {
             name: "Dashboard",
             url: `/${validateRole(user?.role_id)}`,
-            icon: "fas fa-th-large",
+            icon: "fas fa-home",
+        },
+        {
+            name: "Dosen",
+            url: `/${validateRole(user?.role_id)}/dosen`,
+            icon: "fas fa-chalkboard-teacher",
+        },
+        {
+            name: "Mahasiswa",
+            url: `/${validateRole(user?.role_id)}/mahasiswa`,
+            icon: "fas fa-user-graduate",
         },
     ];
 

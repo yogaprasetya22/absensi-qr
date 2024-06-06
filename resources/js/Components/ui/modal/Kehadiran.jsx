@@ -53,7 +53,7 @@ export default function Kehadiran({ data }) {
             id="my_modal_2"
             className="modal backdrop-blur-sm backdrop-brightness-75 "
         >
-            <div className="modal-box w-full max-w-3xl overflow ">
+            <div className="modal-box w-full max-w-5xl overflow ">
                 <form
                     onSubmit={submit}
                     className=" w-full flex flex-col gap-2 "

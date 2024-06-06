@@ -6,7 +6,7 @@ import React from "react";
 import { useEffect } from "react";
 import { QrReader } from "react-qr-reader";
 
-export default function QRScene({ setOpen, dataQr,title }) {
+export default function QRScene({ setOpen, dataQr, title }) {
     const [result, setResult] = React.useState(null);
 
     const handleScan = () => {

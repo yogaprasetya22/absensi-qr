@@ -35,26 +35,20 @@ class DhasboardController extends Controller
                     '15:40:00',
                 ];
 
-                $kelas = Kelas::create([
-                    'dosen_id' => $data_matkul_bt_kelas->prodi->dosen->user->id,
-                    'matkul_id' => $data_matkul_bt_kelas->id,
+                $data_kelas[] = [
                     'pertemuan' => $i,
+                    'buka_absen' => $presensi_empty,
                     'tanggal' => $tanggal_pertemuan->format('Y-m-d'),
-                    'jam_mulai' => $presensi_empty ? $jam_mulai[0] : $jam_mulai[1],
-                    'jam_selesai' => $presensi_empty ? $jam_selesai[0] : $jam_selesai[1],
-                ]);
+                    'matkul_id' => $data_matkul_bt_kelas->id,
+                    'dosen_id' => $data_matkul_bt_kelas->prodi->dosen->id,
+                    'ruangan_id' => 1,
+                ];
 
-                $kelas->absensi()->create([
-                    'mahasiswa_id' => Mahasiswa::inRandomOrder()->first()->id,
-                    'tanggal' => $tanggal_pertemuan->format('Y-m-d'),
-                    'jam_masuk' => $presensi_empty ? $jam_mulai[0] : $jam_mulai[1],
-                    'status' => 'hadir',
-                ]);
             }
         }
         return response()->json([
-            'count' => count($data_kelas),
-            'data' => $data_kelas,
+            'count' => count($matkul_bt_kelas),
+            'data' => $matkul_bt_kelas,
         ]);
 
         // $data_mahasiswa = [];
