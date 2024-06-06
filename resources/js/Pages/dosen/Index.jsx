@@ -198,7 +198,18 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                     window.my_modal_3.show();
                                                 }}
                                             >
-                                                
+                                                <i
+                                                    className={`fas fa-users text-md ${
+                                                        item.buka_absen
+                                                            ? "text-green-400"
+                                                            : "text-gray-300"
+                                                    }`}
+                                                ></i>
+                                                <p className="text-sm">
+                                                    {item.buka_absen
+                                                        ? "Absensi Terbuka"
+                                                        : "Buka Absensi"}
+                                                </p>
                                             </button>
                                         </div>
                                     </div>

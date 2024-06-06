@@ -23,42 +23,6 @@ export default function Guest({ children }) {
                 </div>
                 {children}
             </div>
-            <div className="flex justify-center items-center">
-                <a
-                    href="https://dribbble.com/shots/15515537/attachments/7378723?mode=media"
-                    className="text-black"
-                >
-                    <svg
-                        width="30"
-                        height="30"
-                        viewBox="0 0 30 30"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="hover:text-gray-900"
-                    >
-                        <rect width="30" height="30" fill="url(#pattern0)" />
-                        <defs>
-                            <pattern
-                                id="pattern0"
-                                patternContentUnits="objectBoundingBox"
-                                width="1"
-                                height="1"
-                            >
-                                <use
-                                    xlinkHref="#image0_532:376"
-                                    transform="scale(0.0333333)"
-                                />
-                            </pattern>
-                            <img
-                                id="image0_532:376"
-                                width="30"
-                                height="30"
-                                xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAA.. (truncated for brevity)"
-                            />
-                        </defs>
-                    </svg>
-                </a>
-            </div>
         </div>
     );
 }
