@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\DaftarKelas;
 use App\Models\DaftarMatkulDosen;
+use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -47,7 +49,33 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
+        $request->validate([
+            "nama" => 'required',
+            "email" => 'required',
+            "password" => 'required',
+            "prodi" => 'required',
+            "no_hp" => 'required',
+            "alamat" => 'required',
+        ]);
+
+        $get_dosen_last = User::with('dosen')->where('role_id', 3)->latest('id')->first();
+
+        $user = User::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role_id' => 3,
+        ]);
+
+        $user->dosen()->create([
+            'prodi_id' => $request->prodi,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'nid' => $get_dosen_last->dosen->nid + 1,
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -72,6 +100,29 @@ class DosenController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            "nama" => 'required',
+            "email" => 'required',
+            "prodi" => 'required',
+            "no_hp" => 'required',
+            "alamat" => 'required',
+        ]);
+
+        $user = User::find($id);
+
+        $user->update([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        $user->dosen()->update([
+            'prodi_id' => $request->prodi,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -80,5 +131,8 @@ class DosenController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

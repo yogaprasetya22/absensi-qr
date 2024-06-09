@@ -41,8 +41,17 @@ Route::prefix('/dosen')->middleware(['auth', 'role:3', 'verified'])->group(funct
 
 Route::prefix('admin')->middleware(['auth', 'role:1', 'verified'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+    // dosen
     Route::get('/dosen', [AdminController::class, 'dosen'])->name('admin.dosen');
+    Route::post('/dosen', [DosenController::class, 'store'])->name('admin.dosen.store');
+    Route::patch('/dosen/{id}', [DosenController::class, 'update'])->name('admin.dosen.update');
+    Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('admin.dosen.destroy');
+
+    // mahasiswa
     Route::get('/mahasiswa', [AdminController::class, 'mahasiswa'])->name('admin.mahasiswa');
+    Route::post('/mahasiswa', [MahasiswaController::class, 'store'])->name('admin.mahasiswa.store');
+    Route::patch('/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('admin.mahasiswa.update');
+    Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy'])->name('admin.mahasiswa.destroy');
 });
 
 

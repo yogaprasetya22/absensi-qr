@@ -1,3 +1,6 @@
+import Edit from "@/Components/ui/modal/dosen/edit";
+import Hapus from "@/Components/ui/modal/dosen/hapus";
+import Tambah from "@/Components/ui/modal/dosen/tambah";
 import AdminLayout from "@/Layouts/AdminLayout";
 import React from "react";
 import { useEffect } from "react";
@@ -36,12 +39,18 @@ export default function Dosen({ data }) {
         setItemOffset(newOffset);
     };
 
-    console.log(currentItems);
     return (
         <AdminLayout>
+            <Tambah />
+            <Edit value={dataModal} />
+            <Hapus value={dataModal} />
             <div className="px-5 w-full py-3 flex flex-col gap-5">
-                {/* button tambah dosen */}
-                <div className="flex justify-end">
+                <div
+                    className="flex justify-end"
+                    onClick={() => {
+                        window.my_modal_1.show();
+                    }}
+                >
                     <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
                         Tambah Dosen
                     </button>
@@ -76,7 +85,7 @@ export default function Dosen({ data }) {
                                     <th className="text-md max-w-[8rem] truncate">
                                         {item.dosen.alamat}
                                     </th>
-                                    <td className="border-x text-xs font-medium text-gray-500 uppercase tracking-wider text-center space-x-2">
+                                    <td className="border-x text-xs font-medium text-gray-500 uppercase tracking-wider text-center space-x-2 min-w-[10rem]">
                                         {/* edit and delete */}
                                         <button
                                             onClick={() => {
@@ -104,12 +113,12 @@ export default function Dosen({ data }) {
                     <div className="flex justify-center items-center py-5">
                         <ReactPaginate
                             className="flex flex-row gap-1 w-full justify-center items-center select-none pr-10"
-                            nextLabel="Next"
+                            nextLabel=">"
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={2}
                             marginPagesDisplayed={1}
                             pageCount={pageCount}
-                            previousLabel="Previous"
+                            previousLabel="<"
                             pageClassName=" text-sm border  p-2 rounded-md "
                             pageLinkClassName=" rounded-md  px-2 py-2 font-semibold font-roboto"
                             previousClassName=" p-2 rounded-md shadow-sh-box-sm bg-teal-600 text-white hover:scale-105 hover:scale text-xs"
@@ -120,7 +129,7 @@ export default function Dosen({ data }) {
                             breakClassName=" p-2 rounded-md text-teal-600"
                             breakLinkClassName="text-sm font-semibold font-roboto "
                             containerClassName="pagination"
-                            activeClassName=" bg-transparan border border-yellow-600 text-yellow-600"
+                            activeClassName=" bg-transparan border border-teal-600 text-teal-600"
                         />
                     </div>
                 </div>

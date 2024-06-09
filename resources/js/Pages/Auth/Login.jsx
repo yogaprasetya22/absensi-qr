@@ -3,7 +3,6 @@ import Checkbox from "@/Components/ui/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/ui/InputError";
 import InputLabel from "@/Components/ui/InputLabel";
-import PrimaryButton from "@/Components/ui/PrimaryButton";
 import TextInput from "@/Components/ui/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
