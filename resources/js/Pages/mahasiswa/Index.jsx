@@ -129,11 +129,11 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                         "Pertemuan belum dibuka!"
                                                     );
                                                 } else {
+                                                    setOpen(true);
                                                     setDoubleTap(true);
                                                     setTimeout(() => {
                                                         setDoubleTap(false);
                                                     }, 100);
-                                                    setOpen(true);
                                                     setDataQr({
                                                         ...item,
                                                         mahasiswa_kelas_id:
@@ -141,7 +141,7 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                                         mahasiswa_matkul_id:
                                                             item.matkul_id,
                                                     });
-                                                    setTitle( 
+                                                    setTitle(
                                                         item.matkul.nama_matkul
                                                     );
                                                     window.my_modal_1.show();
@@ -167,8 +167,8 @@ export default function Index({ auth, matkul: data_mahasiswa }) {
                                             <i className="fas fa-user text-md text-gray-300"></i>
                                             <p className="text-sm">
                                                 {
-                                                    item.matkul.prodi.dosen.user
-                                                        .name
+                                                    item?.matkul?.prodi?.dosen
+                                                        ?.user?.name
                                                 }
                                             </p>
                                         </div>
